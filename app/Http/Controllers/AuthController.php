@@ -46,13 +46,18 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        if (auth()->attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/');
+        if (!\App\Models\User::where('email', $credentials['email'])->exists()) {
+            return back()->withErrors([
+                'email' => 'El usuario no existe.',
+            ])->onlyInput('email');
         }
-        return back()->withErrors([
-            'email' => 'Las credenciales no son válidas.',
-        ])->onlyInput('email');
+        if (!auth()->attempt($credentials)) {
+            return back()->withErrors([
+                'email' => 'La contraseña es incorrecta.',
+            ])->onlyInput('email');
+        }
+        $request->session()->regenerate();
+        return redirect()->intended('/');
     }
 
     public function logout(Request $request)

@@ -22,7 +22,7 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rut_empresa' => 'required|string|unique:clients,rut_empresa,' . $this->client,
+            'rut_empresa' => 'required|string|unique:clients,rut_empresa,' . $this->route('client')->id,
             'rubro' => 'required|string',
             'razon_social' => 'required|string',
             'telefono' => 'required|string',

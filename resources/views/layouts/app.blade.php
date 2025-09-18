@@ -67,6 +67,15 @@
                     </div>
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <span class="fw-bold">VentasFix</span>
+                        <div class="d-flex align-items-center ms-auto">
+                            @auth
+                            <span class="me-2 fw-semibold">{{ auth()->user()->nombre ?? auth()->user()->name }}</span>
+                            <form action="{{ route('logout') }}" method="POST" class="mb-0">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Seguro que deseas cerrar sesión?');">Cerrar sesión</button>
+                            </form>
+                            @endauth
+                        </div>
                     </div>
                 </nav>
                 <!-- /Navbar -->

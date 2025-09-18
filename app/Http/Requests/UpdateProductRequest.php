@@ -22,7 +22,7 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sku' => 'required|string|unique:products,sku,' . $this->product,
+            'sku' => 'required|string|unique:products,sku,' . $this->route('product')->id,
             'nombre' => 'required|string',
             'descripcion_corta' => 'required|string',
             'descripcion_larga' => 'required|string',
